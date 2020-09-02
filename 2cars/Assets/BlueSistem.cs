@@ -5,14 +5,40 @@ using UnityEngine;
 public class BlueSistem : MonoBehaviour
 {
     public GameObject bom;
+    public GameObject Damage;
+
+    public float Speed = 0.3f;
+
+
+    public AudioClip sound1;
+    AudioSource audioSource;
     bool onsistem = false;
 
     // Start is called before the first frame update
     void Start()
     {
         bom.SetActive(false);
+        Damage.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
         onsistem = false;
 
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(this.gameObject);
+    }
+
+    void DamageF()
+    {
+        Damage.SetActive(false);
+
+    }
+
+    private void Update()
+    {
+        this.transform.Translate(0, Speed, 0);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,6 +52,8 @@ public class BlueSistem : MonoBehaviour
                 Invoke("OnDestroy", 3f);
 
                 onsistem = true;
+                audioSource.PlayOneShot(sound1);
+
             }
         }
         if (other.gameObject.tag == ("Red"))
@@ -35,6 +63,10 @@ public class BlueSistem : MonoBehaviour
                 bom.SetActive(true);
                 //Destroy(this.gameObject);
                 Invoke("OnDestroy", 3f);
+
+                Damage.SetActive(true);
+
+                Invoke("DamageF", 0.1f);
 
                 onsistem = true;
             }
