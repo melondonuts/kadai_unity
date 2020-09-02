@@ -5,7 +5,6 @@ using UnityEngine;
 public class BlueSistem : MonoBehaviour
 {
     public GameObject bom;
-    public GameObject Damage;
 
     public float Speed = 0.3f;
 
@@ -18,7 +17,6 @@ public class BlueSistem : MonoBehaviour
     void Start()
     {
         bom.SetActive(false);
-        Damage.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
         onsistem = false;
@@ -30,11 +28,13 @@ public class BlueSistem : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void DamageF()
-    {
-        Damage.SetActive(false);
+    //void DamageF()
+    //{
 
-    }
+    //    OcstacleSistem.DamageFlag = false;
+
+    //}
+
 
     private void Update()
     {
@@ -64,9 +64,7 @@ public class BlueSistem : MonoBehaviour
                 //Destroy(this.gameObject);
                 Invoke("OnDestroy", 3f);
 
-                Damage.SetActive(true);
-
-                Invoke("DamageF", 0.1f);
+                OcstacleSistem.DamageFlag = true;
 
                 onsistem = true;
             }

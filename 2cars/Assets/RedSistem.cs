@@ -5,23 +5,18 @@ using UnityEngine;
 public class RedSistem : MonoBehaviour
 {
     public GameObject bom;
-    public GameObject Damage;
 
     bool onsistem = false;
 
     public float Speed = 0.3f;
 
-
     public AudioClip sound1;
     AudioSource audioSource;
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         bom.SetActive(false);
-        Damage.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
         onsistem = false;
@@ -37,11 +32,14 @@ public class RedSistem : MonoBehaviour
         this.transform.Translate(0, Speed, 0);
     }
 
-    void DamageF()
-    {
-        Damage.SetActive(false);
+    //void DamageF()
+    //{
 
-    }
+    //    OcstacleSistem.DamageFlag = false;
+
+    //}
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -67,10 +65,7 @@ public class RedSistem : MonoBehaviour
                 bom.SetActive(false);
                 Invoke("OnDestroy", 3f);
 
-                Damage.SetActive(true);
-
-                Invoke("DamageF", 0.1f);
-
+                OcstacleSistem.DamageFlag = true;
 
                 onsistem = true;
             }
